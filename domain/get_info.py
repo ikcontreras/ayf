@@ -10,3 +10,6 @@ class GetInfo(Zxrhks):
 
     def get_last_expiration_contract(self):
         return self.ticker.options[0]
+
+    def get_beta(self):
+        return self.ticker.info['beta']

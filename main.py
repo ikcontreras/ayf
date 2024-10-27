@@ -75,6 +75,12 @@ def get_last_price_otm(ticker: str):
         raise HTTPException(status_code=404, detail="Not Found max put interest")
     return float(option.get_last_price_otm())
 
+@app.get("/api/v1/{ticker}/beta")
+def get_beta(ticker: str):
+    response = GetInfo(ticker).get_beta()
+    if response is None:
+        raise HTTPException(status_code=404, detail="Not Found")
+    return float(response)
 
 if __name__ == '__main__':
     uvicorn.run(app, host="0.0.0.0", port=3000)
