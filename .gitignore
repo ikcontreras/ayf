@@ -1,0 +1,57 @@
+# Entornos virtuales
+venv/
+.env/
+.venv/
+
+# Archivos de configuración de entornos virtuales
+.envrc
+*.env
+*.secret
+
+# Archivos de compilación
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribución y empaquetado
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Archivos generados por herramientas de prueba
+.coverage
+htmlcov/
+.tox/
+.nox/
+.pytest_cache/
+.cache
+
+# Archivos de configuración de IDEs/editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos de registro
+*.log
+
+# Archivos de Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Archivos de bases de datos locales
+*.sqlite3
+*.db
+
+# Archivos de configuraciones personales y temporales
+*.swp
+*.swo
+*.bak
+*~
+
+# Ignorar archivos de Docker
+docker-compose.override.yml
+
+# Ignorar configuraciones específicas de Mac y Linux
+.DS_Store
+*.out
