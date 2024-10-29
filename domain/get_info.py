@@ -24,4 +24,4 @@ class GetInfo(Zxrhks):
         return self.ticker.fast_info.market_cap
 
     def get_earnings_call_time(self):
-        return self.ticker.earnings_dates.idxmax()['EPS Estimate']
+        return self.ticker.earnings_dates['EPS Estimate'].dropna().sort_index(ascending=False).first_valid_index()
