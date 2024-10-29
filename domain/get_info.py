@@ -13,3 +13,15 @@ class GetInfo(Zxrhks):
 
     def get_beta(self):
         return self.ticker.info['beta']
+
+    def get_name_company(self):
+        return self.ticker.info['longName']
+
+    def get_sector(self):
+        return self.ticker.info['sector']
+
+    def get_market_cap(self):
+        return self.ticker.fast_info.market_cap
+
+    def get_earnings_call_time(self):
+        return self.ticker.earnings_dates.idxmax()['EPS Estimate']

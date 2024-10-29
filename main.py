@@ -5,12 +5,42 @@ from domain.call_option import CallOption
 from domain.financial_options import FinancialOptions
 from domain.get_info import GetInfo
 from domain.put_option import PutOption
+from utils.conversions import Conversions
+from utils.formatter import Formatter
 
 app = FastAPI()
 
 @app.get("/api/v1/ping")
 def test_ping():
     return "pong"
+
+@app.get("/api/v1/{ticker}/name_company")
+def get_name_company(ticker: str):
+    response = GetInfo(ticker).get_name_company()
+    if response is None:
+        raise HTTPException(status_code=404, detail="Not Found")
+    return response
+
+@app.get("/api/v1/{ticker}/sector")
+def get_sector(ticker: str):
+    response = GetInfo(ticker).get_sector()
+    if response is None:
+        raise HTTPException(status_code=404, detail="Not Found")
+    return response
+
+@app.get("/api/v1/{ticker}/market_cap")
+def get_market_capitalization(ticker: str):
+    response = GetInfo(ticker).get_market_cap()
+    if response is None:
+        raise HTTPException(status_code=404, detail="Not Found")
+    return Conversions.identify_billion(response)
+
+@app.get("/api/v1/{ticker}/earnings_call_time")
+def get_earnings_call_time(ticker: str):
+    response = GetInfo(ticker).get_earnings_call_time()
+    if response is None:
+        raise HTTPException(status_code=404, detail="Not Found")
+    return Formatter.to_date_time(response)
 
 @app.get("/api/v1/{ticker}/last_price")
 def get_last_price(ticker: str):
@@ -74,6 +104,13 @@ def get_last_price_otm(ticker: str):
     if option is None:
         raise HTTPException(status_code=404, detail="Not Found max put interest")
     return float(option.get_last_price_otm())
+
+@app.get("/api/v1/{ticker}/options/max_volume/otm")
+def get_max_volume_otm(ticker: str):
+    option = FinancialOptions(ticker, CallOption(ticker), PutOption(ticker))
+    if option is None:
+        raise HTTPException(status_code=404, detail="Not Found max put interest")
+    return float(option.get_max_volume_otm())
 
 @app.get("/api/v1/{ticker}/beta")
 def get_beta(ticker: str):
