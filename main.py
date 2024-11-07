@@ -35,13 +35,6 @@ def get_market_capitalization(ticker: str):
         raise HTTPException(status_code=404, detail="Not Found")
     return Conversions.identify_billion(response)
 
-@app.get("/api/v1/{ticker}/earnings_call_time")
-def get_earnings_call_time(ticker: str):
-    response = GetInfo(ticker).get_earnings_call_time()
-    if response is None:
-        raise HTTPException(status_code=404, detail="Not Found")
-    return Formatter.to_date_time(response)
-
 @app.get("/api/v1/{ticker}/last_price")
 def get_last_price(ticker: str):
     response = GetInfo(ticker).last_price()
@@ -98,14 +91,14 @@ def get_strike_of_max_open_interest_otm(ticker: str):
         raise HTTPException(status_code=404, detail="Not Found max put interest")
     return float(option.get_strike_of_max_open_interest_otm())
 
-@app.get("/api/v1/{ticker}/option/last_price/otm")
+@app.get("/api/v1/{ticker}/option/prima_strike_of_max_open_interest/otm")
 def get_last_price_otm(ticker: str):
     option = FinancialOptions(ticker, CallOption(ticker), PutOption(ticker))
     if option is None:
         raise HTTPException(status_code=404, detail="Not Found max put interest")
     return float(option.get_last_price_otm())
 
-@app.get("/api/v1/{ticker}/options/max_volume/otm")
+@app.get("/api/v1/{ticker}/options/max_volume_strike_of_max_open_interest/otm")
 def get_max_volume_otm(ticker: str):
     option = FinancialOptions(ticker, CallOption(ticker), PutOption(ticker))
     if option is None:

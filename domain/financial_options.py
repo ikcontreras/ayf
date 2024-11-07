@@ -16,13 +16,13 @@ class FinancialOptions(Zxrhks):
         calls = self.get_options().calls
         puts = self.get_options().puts
         option = pandas.concat([calls, puts], ignore_index=True)
-        return option.loc[option['openInterest'].idxmax(), 'strike']
+        return option.loc[option[~option['inTheMoney']]['openInterest'].idxmax(), 'strike']
 
     def get_last_price_otm(self):
         calls = self.get_options().calls
         puts = self.get_options().puts
         option = pandas.concat([calls, puts], ignore_index=True)
-        return option.loc[option['openInterest'].idxmax(), 'lastPrice']
+        return option.loc[option[~option['inTheMoney']]['openInterest'].idxmax(), 'lastPrice']
 
     def get_max_volume_otm(self):
         calls = self.get_options().calls
