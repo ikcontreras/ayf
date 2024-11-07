@@ -28,5 +28,11 @@ class FinancialOptions(Zxrhks):
         calls = self.get_options().calls
         puts = self.get_options().puts
         option = pandas.concat([calls, puts], ignore_index=True)
-        return option.loc[option['openInterest'].idxmax(), 'volume']
+        return option.loc[option[~option['inTheMoney']]['openInterest'].idxmax(), 'volume']
+
+    def get_sum_volume_otm(self):
+        calls = self.get_options().calls
+        puts = self.get_options().puts
+        option = pandas.concat([calls, puts], ignore_index=True)
+        return option[~option['inTheMoney']]['volume'].sum()
 

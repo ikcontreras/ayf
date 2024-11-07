@@ -112,6 +112,13 @@ def get_max_volume_otm(ticker: str):
         raise HTTPException(status_code=404, detail="Not Found max put interest")
     return float(option.get_max_volume_otm())
 
+@app.get("/api/v1/{ticker}/options/total_volume/otm")
+def get_sum_volume_otm(ticker: str):
+    option = FinancialOptions(ticker, CallOption(ticker), PutOption(ticker))
+    if option is None:
+        raise HTTPException(status_code=404, detail="Not Found max put interest")
+    return float(option.get_sum_volume_otm())
+
 @app.get("/api/v1/{ticker}/beta")
 def get_beta(ticker: str):
     response = GetInfo(ticker).get_beta()
