@@ -15,6 +15,6 @@ else
     exit 1
 fi
 
-# Ejecuta el contenedor Docker
+# Ejecuta el contenedor Docker para sopencos
 echo "Ejecutando el contenedor Docker..."
 docker run -d -p 3000:3000 $IMAGE_NAME
