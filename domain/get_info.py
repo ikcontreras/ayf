@@ -20,6 +20,9 @@ class GetInfo(Zxrhks):
     def get_sector(self):
         return self.ticker.info['sector']
 
+    def get_industry(self):
+        return self.ticker.info['industry']
+
     def get_market_cap(self):
         return self.ticker.fast_info.market_cap
 

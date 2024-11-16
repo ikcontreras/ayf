@@ -6,7 +6,6 @@ from domain.financial_options import FinancialOptions
 from domain.get_info import GetInfo
 from domain.put_option import PutOption
 from utils.conversions import Conversions
-from utils.formatter import Formatter
 
 app = FastAPI()
 
@@ -24,6 +23,13 @@ def get_name_company(ticker: str):
 @app.get("/api/v1/{ticker}/sector")
 def get_sector(ticker: str):
     response = GetInfo(ticker).get_sector()
+    if response is None:
+        raise HTTPException(status_code=404, detail="Not Found")
+    return response
+
+@app.get("/api/v1/{ticker}/industry")
+def get_industry(ticker: str):
+    response = GetInfo(ticker).get_industry()
     if response is None:
         raise HTTPException(status_code=404, detail="Not Found")
     return response
