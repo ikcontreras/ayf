@@ -10,5 +10,9 @@ class PutOption(Zxrhks):
         return puts[~puts['inTheMoney']]['openInterest'].max()
 
     def get_total_open_interest_otm(self):
-        calls = self.get_options().puts
-        return calls[~calls['inTheMoney']]['openInterest'].sum()
+        puts = self.get_options().puts
+        return puts[~puts['inTheMoney']]['openInterest'].sum()
+
+    def get_total_volume_otm(self):
+        puts = self.get_options().puts
+        return puts[~puts['inTheMoney']]['volume'].sum()

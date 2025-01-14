@@ -12,3 +12,7 @@ class CallOption(Zxrhks):
     def get_total_open_interest_otm(self):
         calls = self.get_options().calls
         return calls[~calls['inTheMoney']]['openInterest'].sum()
+
+    def get_total_volume_otm(self):
+        calls = self.get_options().calls
+        return calls[~calls['inTheMoney']]['volume'].sum()
